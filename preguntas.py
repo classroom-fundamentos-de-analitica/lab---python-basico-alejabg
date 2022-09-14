@@ -1,3 +1,4 @@
+
 """
 Laboratorio de Programación Básica en Python para Manejo de Datos
 -----------------------------------------------------------------------------------------
@@ -14,6 +15,7 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 def pregunta_01():
+    
     """
     Retorne la suma de la segunda columna.
 
@@ -21,7 +23,12 @@ def pregunta_01():
     214
 
     """
-    return
+    suma = 0
+    datos = open("data.csv", "r")
+    for elemento in datos:
+        suma += int(elemento[2])
+
+    return suma
 
 
 def pregunta_02():
@@ -39,6 +46,7 @@ def pregunta_02():
     ]
 
     """
+
     return
 
 
@@ -57,7 +65,26 @@ def pregunta_03():
     ]
 
     """
-    return
+    
+    datos = open("data.csv", "r")
+    lista = []
+    for elemento in datos:
+        if elemento[0] not in lista:
+            lista.append(elemento[0])
+    tupla = ()
+    lista2 = []
+
+    for elmt in lista:
+        suma = 0
+        for cols in datos:
+            if elmt == cols[0]:
+                suma += int(cols[2])
+        tupla = (elmt, suma)
+        lista2.append(tupla)
+    
+    sorted(lista2)
+    
+    return lista2
 
 
 def pregunta_04():
