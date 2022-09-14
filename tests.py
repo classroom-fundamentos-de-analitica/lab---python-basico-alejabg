@@ -178,7 +178,7 @@ def test_11():
 def test_12():
     assert preguntas.pregunta_12() == {"A": 177, "B": 187, "C": 114, "D": 136, "E": 324}
 
-"""
+
 test = {
     "01": test_01,
     "02": test_02,
@@ -193,6 +193,6 @@ test = {
     "11": test_11,
     "12": test_12,
 }[sys.argv[1]]
-"""
 
-test_01()
+
+test()
