@@ -46,9 +46,18 @@ def pregunta_02():
     ]
 
     """
-
-    return
-
+    datos = list(open("data.csv", "r"))
+    letras = list(set([elem[0] for elem in datos]))
+    salida = []
+    for elem in letras:
+        cont = 0
+        for linea in datos:
+            if linea[0] == elem:
+                cont += 1
+        salida.append((elem, cont))
+    salida = sorted(salida)
+    return salida
+    
 
 def pregunta_03():
     """
@@ -66,7 +75,8 @@ def pregunta_03():
 
     """
     
-    datos = open("data.csv", "r")
+    datos = list(open("data.csv", "r"))
+
     lista = []
     for elemento in datos:
         if elemento[0] not in lista:
@@ -82,7 +92,7 @@ def pregunta_03():
         tupla = (elmt, suma)
         lista2.append(tupla)
     
-    sorted(lista2)
+    lista2 = sorted(lista2, key=lambda x: ord(x[0]))
     
     return lista2
 
@@ -109,7 +119,19 @@ def pregunta_04():
     ]
 
     """
-    return
+    datos = open("data.csv", "r")
+    datos = [elem.replace("\n", "").split("\t") for elem in datos]
+    meses = list(set([(elem[2].split("-"))[1] for elem in datos]))
+    salida = []
+    for elem in meses:
+        cont = 0
+        for linea in datos:
+            mes = linea[2].split('-')[1]
+            if mes == elem:
+                cont += 1
+        salida.append((elem, cont))
+    return sorted(salida)
+    
 
 
 def pregunta_05():
@@ -127,7 +149,27 @@ def pregunta_05():
     ]
 
     """
-    return
+    datos = list(open("data.csv", "r"))
+    lista = []
+    for elemento in datos:
+        if elemento[0] not in lista:
+            lista.append(elemento[0])
+    tupla = ()
+    lista2 = []
+    
+
+    for elmt in lista:
+        nums = []
+        for cols in datos:
+            if elmt == cols[0]:
+                nums.append(int(cols[2]))   
+        tupla = (elmt, max(nums), min(nums))
+        lista2.append(tupla)
+    
+    lista2 = sorted(lista2, key=lambda x: ord(x[0]))
+    
+    return lista2
+
 
 
 def pregunta_06():
@@ -152,7 +194,27 @@ def pregunta_06():
     ]
 
     """
-    return
+    datos = open("data.csv", "r")
+    datos = [elem.replace("\n", "").split("\t") for elem in datos] 
+    matriz = [elem[4].split(',') for elem in datos]
+    lista = []
+    for elem in matriz:
+        for elem2 in elem:
+            lista.append(elem2)
+    letras = {}
+    for elem in lista:
+        elem = elem.split(":")
+        if elem[0] in letras:
+            letras[elem[0]].append(int(elem[1]))
+        else:
+            letras[elem[0]] = [int(elem[1])]
+    fin = []
+    for elem in letras:
+        tupla = (elem, min(letras[elem]), max(letras[elem]))
+        fin.append(tupla)
+    fin = sorted(fin)
+    return fin
+    
 
 
 def pregunta_07():
@@ -176,7 +238,25 @@ def pregunta_07():
     ]
 
     """
-    return
+    datos = list(open("data.csv", "r"))
+    lista = []
+    for elemento in datos:
+        if int(elemento[2]) not in lista:
+            lista.append(int(elemento[2]))
+    tupla = ()
+    salida = []
+    for elmt in lista:
+        lista2 = []
+        for cols in datos:
+            if elmt == int(cols[2]):
+                lista2.append(str(cols[0]))
+        tupla = (elmt, lista2)
+        salida.append(tupla)
+    
+    
+    salida = sorted(salida, key=lambda x: x[0])
+    return salida
+    
 
 
 def pregunta_08():
@@ -201,7 +281,21 @@ def pregunta_08():
     ]
 
     """
-    return
+    datos = open("data.csv", "r")
+    datos = [elem.replace("\n", "").split("\t") for elem in datos] 
+    nums = {}
+    for linea in datos:
+        num = int(linea[1])
+        if num in nums:
+            nums[num].append(linea[0])
+        else:
+            nums[num] = [linea[0]]
+    salida = []
+    for elem in nums:
+        salida.append((elem, sorted(list(set(nums[elem])))))
+    salida = sorted(salida)
+    return salida
+    
 
 
 def pregunta_09():
@@ -224,7 +318,26 @@ def pregunta_09():
     }
 
     """
-    return
+    datos = open("data.csv", "r")
+    datos = [elem.replace("\n", "").split("\t") for elem in datos] 
+    matriz = [elem[4].split(',') for elem in datos]
+    lista = []
+    for elem in matriz:
+        for elem2 in elem:
+            lista.append(elem2)
+        letras = list(set([elem.split(':')[0] for elem in lista]))
+        salida = {}
+        for letra in letras:
+            for i in lista:
+                if letra in salida:
+                    if i.split(":")[0] == letra:
+                        salida[letra] += 1
+                elif i.split(":")[0] == letra:
+                    salida[letra] = 1
+    salida2 = sorted(salida.items())
+    dic2 = dict(salida2)
+    return dic2
+    
 
 
 def pregunta_10():
@@ -245,7 +358,18 @@ def pregunta_10():
 
 
     """
-    return
+   
+    datos = open("data.csv", "r")
+    datos = [elem.replace("\n", "").split("\t") for elem in datos] 
+    lista = []
+    tupla = ()
+    for col in datos:
+        x = col[4].split(",")
+        y = col[3].split(",")
+        tupla = (col[0], len(y), len(x))
+        lista.append(tupla)
+    
+    return lista
 
 
 def pregunta_11():
@@ -266,7 +390,21 @@ def pregunta_11():
 
 
     """
-    return
+    datos = open("data.csv", "r")
+    datos = [elem.replace("\n", "").split("\t") for elem in datos] 
+    salida = {}
+    for linea in datos:
+        num = int(linea[1])
+        letras = linea[3].split(",")
+        for letra in letras:
+            if letra in salida:
+                salida[letra] += num
+            else:
+                salida[letra] = num
+    salida = sorted(salida.items())
+    salida2 = dict(salida)
+    return salida2
+    
 
 
 def pregunta_12():
@@ -284,4 +422,20 @@ def pregunta_12():
     }
 
     """
-    return
+    datos = open("data.csv", "r")
+    datos = [elem.replace("\n", "").split("\t") for elem in datos]
+    salida = {}
+    for linea in datos:
+        letra = linea[0]
+        pares = linea[4].split(",")
+        nums = []
+        for par in pares:
+            nums.append(int(par.split(":")[1]))
+        if letra in salida:
+            salida[letra] += sum(nums)
+        else:
+            salida[letra] = sum(nums)
+    salida = sorted(salida.items())
+    salida2 = dict(salida)
+    return salida2
+  
